@@ -1,0 +1,10 @@
+
+{
+  "version": 2,
+  "public": "public",
+  "functions": {
+    "api/submit.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}
