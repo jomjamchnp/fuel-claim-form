@@ -1,14 +1,9 @@
 {
   "version": 2,
-  "functions": {
-    "api/submit.js": {
-      "runtime": "vercel/node@20.0"
-    }
-  },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/bin/www"
+      "source": "/(.*)",
+      "destination": "/api"
     }
   ]
 }
