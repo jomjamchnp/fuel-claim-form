@@ -4,11 +4,29 @@
 <head>
   <meta charset="UTF-8">
   <title>แจ้งเบิกน้ำมันค่าเที่ยว</title>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    .logo-container {
+      text-align: center;
+      margin-bottom: 5px;
+      padding-top: 20px;
+    }
+    .logo-container img {
+      max-width: 150px;
+      height: auto;
+    }
+    .form {
+      margin-left: 10px;
+    }
+  </style>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 </head>
 <body>
-  <h1>ฟอร์มแจ้งเบิกน้ำมัน</h1>
-  <form id="oilForm">
+  <div class="logo-container">
+    <img src="https://www.dropbox.com/scl/fi/vh73i9yg9zgx0kicb9vrj/logo.jpg?rlkey=o20qqqr3bml6m52y5rxo9m272&st=tbtvqrni&raw=1" alt="โลโก้บริษัท">
+  </div>
+    <h1 style="margin-left: 10px;">ฟอร์มแจ้งเบิกน้ำมัน</h1>
+  <!-- <img src="https://www.dropbox.com/scl/fi/vh73i9yg9zgx0kicb9vrj/logo.jpg?rlkey=o20qqqr3bml6m52y5rxo9m272&st=tbtvqrni&raw=1" alt="โลโก้บริษัท"> -->
+  <form class="form" id="oilForm">
     <label>วันที่:</label><br>
     <input type="date" name="date" required><br><br>
 
@@ -46,7 +64,18 @@
     <input type="text" id="oil_claim" readonly><br><br>
 
     <label>บัญชีธนาคาร:</label><br>
-    <input type="text" name="bank" required><br><br>
+    <select name="bank" required>
+      <option value="">-- เลือกธนาคาร --</option>
+      <option value="กรุงไทย">กรุงไทย</option>
+      <option value="กสิกรไทย">กสิกรไทย</option>
+      <option value="ไทยพาณิชย์">ไทยพาณิชย์</option>
+      <option value="กรุงเทพ">กรุงเทพ</option>
+      <option value="ทหารไทยธนชาต (TTB)">ทหารไทยธนชาต (TTB)</option>
+      <option value="ออมสิน">ออมสิน</option>
+      <option value="เกียรตินาคิน">เกียรตินาคิน</option>
+      <option value="ซีไอเอ็มบี">ซีไอเอ็มบี</option>
+      <option value="ยูโอบี">ยูโอบี</option>
+    </select><br><br>
 
     <label>ชื่อบัญชี:</label><br>
     <input type="text" name="bank_name" required><br><br>
