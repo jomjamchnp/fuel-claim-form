@@ -119,36 +119,39 @@
 </script>
 <script>
   async function checkDailyPassword() {
-    const { value: userPassword } = await Swal.fire({
-      title: 'กรุณากรอกรหัสผ่าน',
-      input: 'password',
-      inputPlaceholder: 'รหัสผ่าน',
-      inputAttributes: {
-        autocapitalize: 'off',
-        autocorrect: 'off'
-      },
-      showCancelButton: false,
-      confirmButtonText: 'ตรวจสอบ',
-      allowOutsideClick: false
-    });
+  const { value: inputPassword } = await Swal.fire({
+    title: 'กรุณากรอกรหัสผ่าน',
+    input: 'password',
+    inputPlaceholder: 'รหัสผ่าน',
+    inputAttributes: {
+      autocapitalize: 'off',
+      autocorrect: 'off'
+    },
+    showCancelButton: false,
+    confirmButtonText: 'ตรวจสอบ',
+    allowOutsideClick: false
+  });
 
-    if (!userPassword) {
-      checkDailyPassword(userPassword);
-      return;
-    }
-    //get password from gg sheet 
-    const res = await fetch('/api/get-password');
-    const password = await res.json();
-
-    if (userPassword === password) {
-      Swal.fire('รหัสถูกต้อง', 'เริ่มกรอกแบบฟอร์มได้', 'success');
-    } else {
-      Swal.fire('รหัสไม่ถูกต้อง', 'ลองใหม่อีกครั้ง', 'error').then(() => {
-        checkDailyPassword();
-      });
-    }
+  if (!inputPassword) {
+    return checkDailyPassword();
   }
-    checkDailyPassword();
+
+  const res = await fetch('/api/verify-password', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: inputPassword })
+  });
+
+  const result = await res.json();
+
+  if (!result.valid) {
+    await Swal.fire('❌ รหัสผ่านไม่ถูกต้อง', 'โปรดลองใหม่อีกครั้ง', 'error');
+    return checkDailyPassword();
+  }
+  await Swal.fire('✅ รหัสผ่านถูกต้อง', 'success');
+  }
+
+  checkDailyPassword();
 </script>
 </body>
 </html>
