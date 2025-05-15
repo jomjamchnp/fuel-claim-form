@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     const sheetId = process.env.SHEET_ID;
     const range = 'Password!A1';
 
-    await sheets.spreadsheets.values.append({
+    await sheets.spreadsheets.values.update({
       spreadsheetId: sheetId,
       range,
       valueInputOption: 'USER_ENTERED',
