@@ -118,7 +118,6 @@
 
 </script>
 <script>
-  // ตรวจสอบ password ก่อนโชว์ form
   async function checkDailyPassword() {
     const { value: userPassword } = await Swal.fire({
       title: 'กรุณากรอกรหัสผ่าน',
@@ -137,11 +136,17 @@
       checkDailyPassword();
       return;
     }
+    //get password from gg sheet 
+    const range = 'Passwords!A1';
 
-    const res = await fetch('/api/get-password');
-    const data = await res.json();
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: sheetId,
+      range,
+    });
 
-    if (userPassword === data.password) {
+    const password = response.data.values ? response.data.values[0][0] : null;
+    console.log(password)
+    if (userPassword === password) {
       Swal.fire('รหัสถูกต้อง', 'เริ่มกรอกแบบฟอร์มได้', 'success');
     } else {
       Swal.fire('รหัสไม่ถูกต้อง', 'ลองใหม่อีกครั้ง', 'error').then(() => {
@@ -149,8 +154,6 @@
       });
     }
   }
-
-  // เรียกตอนโหลดหน้า
   checkDailyPassword();
 </script>
 </body>
