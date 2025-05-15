@@ -18,7 +18,8 @@
       margin-left: 10px;
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
 </head>
 <body>
   <div class="logo-container">
@@ -114,6 +115,43 @@
     form.reset();
     oilClaimInput.value = "";
   });
+
+</script>
+<script>
+  // ตรวจสอบ password ก่อนโชว์ form
+  async function checkDailyPassword() {
+    const { value: userPassword } = await Swal.fire({
+      title: 'กรุณากรอกรหัสผ่าน',
+      input: 'password',
+      inputPlaceholder: 'รหัสผ่าน',
+      inputAttributes: {
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      },
+      showCancelButton: false,
+      confirmButtonText: 'ตรวจสอบ',
+      allowOutsideClick: false
+    });
+
+    if (!userPassword) {
+      checkDailyPassword();
+      return;
+    }
+
+    const res = await fetch('/api/get-password');
+    const data = await res.json();
+
+    if (userPassword === data.password) {
+      Swal.fire('รหัสถูกต้อง', 'เริ่มกรอกแบบฟอร์มได้', 'success');
+    } else {
+      Swal.fire('รหัสไม่ถูกต้อง', 'ลองใหม่อีกครั้ง', 'error').then(() => {
+        checkDailyPassword();
+      });
+    }
+  }
+
+  // เรียกตอนโหลดหน้า
+  checkDailyPassword();
 </script>
 </body>
 </html>
