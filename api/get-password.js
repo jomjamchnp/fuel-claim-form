@@ -1,8 +1,10 @@
 export default async function handler(req, res) {
     const genratrApiUrl = "https://api.genratr.com/?length=6&lowercase&numbers";
     const genResponse = await fetch(genratrApiUrl);
-    const res = await genResponse.json(); 
-    const message = `รหัสประจำวันนี้: ${res.password}`;
+    const jsonString = await genResponse.text(); 
+    const obj = JSON.parse(jsonString);
+    const password = obj.password;
+    const message = `รหัสประจำวันนี้: ${password}`;
   
     const token = process.env.LINE_TOKEN;
     const groupId = process.env.LINE_GROUP_ID;
