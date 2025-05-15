@@ -1,5 +1,4 @@
 import { google } from 'googleapis';
-import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
     const genratrApiUrl = "https://api.genratr.com/?length=6&lowercase&numbers";
@@ -7,7 +6,7 @@ export default async function handler(req, res) {
     const jsonString = await genResponse.text(); 
     const obj = JSON.parse(jsonString);
     const password = obj.password;
-    // const message = `รหัสประจำวันนี้: ${password}`;
+    const message = `รหัสประจำวันนี้: ${password}`;
     
     // save daily password in gg sheet
     const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
