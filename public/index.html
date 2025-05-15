@@ -145,20 +145,11 @@
   const result = await res.json();
 
   if (!result.valid) {
-<<<<<<< HEAD
     await Swal.fire('รหัสผ่านไม่ถูกต้อง', 'โปรดลองใหม่อีกครั้ง', 'error');
     return checkDailyPassword();
   }
   await Swal.fire('รหัสผ่านถูกต้อง');
   }
-=======
-    await Swal.fire('❌ รหัสผ่านไม่ถูกต้อง', 'โปรดลองใหม่อีกครั้ง', 'error');
-    return checkDailyPassword();
-  }
-  await Swal.fire('✅ รหัสผ่านถูกต้อง', 'success');
-  }
-
->>>>>>> 9785b4cf82b3274bb76a76f2441c78837bca7589
   checkDailyPassword();
 </script>
 </body>
